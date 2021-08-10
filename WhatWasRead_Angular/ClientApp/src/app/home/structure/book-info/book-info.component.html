@@ -1,0 +1,16 @@
+<div class="book-info">
+  <div class="book-img">
+    <img src="{{imgSource}}" alt={{name}} />
+  </div>
+  <div class="book-name">
+    {{name}}
+  </div>
+  <div class="book-authors">
+    <p></p>
+    {{authors}}
+  </div>
+  <div class="book-details">
+    <a [routerLink]="['/books/details', bookInput.bookId]">Подробнее</a>
+  </div>
+</div>
+

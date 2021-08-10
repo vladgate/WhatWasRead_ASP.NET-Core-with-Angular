@@ -1,0 +1,41 @@
+body {
+  background-color: #d2d0d0;
+}
+
+div {
+  display: block;
+  margin: 0 auto;
+}
+
+a {
+  color: navy;
+  text-decoration: none;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+#header h1 {
+  color: lightslategray;
+  text-align: center;
+  font-size: 50px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 300px;
+}
+
+#footer {
+  clear: both;
+  width: 1340px;
+  height: 50px;
+  background-color: inherit;
+  align-items: flex-start;
+  display: flex;
+  text-decoration: underline;
+  padding-top: 15px;
+}
+
+#footer-menu {
+  margin-left: 340px;
+}

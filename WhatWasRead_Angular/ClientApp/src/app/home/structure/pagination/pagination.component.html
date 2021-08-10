@@ -1,0 +1,17 @@
+<div class="PagingWrapper">
+  <div class="bottom-paging">
+    <ng-container *ngFor="let page of pages">
+      <a class="PageLink" aria-current="page"
+         [class.selected]="pageIsActive(page)"
+         (click)="navigationService.currentPage=page"
+         [routerLink]="['/books/list/', currentCategory , 'page' + page]" queryParamsHandling="preserve">
+        {{page}}
+      </a>
+    </ng-container>
+  </div>
+  <div>
+    <button id="btn-load-more" class="btn btn-success" [disabled]="totalPages === 0 || totalPages === navigationService.currentPage" (click)="showMoreBooks()">
+      Показать еще
+    </button>
+  </div>
+</div>

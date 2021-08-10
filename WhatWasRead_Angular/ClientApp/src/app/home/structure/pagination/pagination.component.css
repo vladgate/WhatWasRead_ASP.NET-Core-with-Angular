@@ -1,0 +1,30 @@
+.PagingWrapper {
+  text-align: center;
+}
+
+  .PagingWrapper.bottom-paging {
+    font-size: medium;
+    display: inline-block;
+    margin: 5px;
+  }
+
+  .PagingWrapper button {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+  }
+
+.PageLink {
+  display: inline-block;
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  padding-top: 3px;
+}
+
+  .PageLink.selected {
+    font-style: oblique;
+    font-weight: bold;
+    background-color: mediumseagreen;
+    border-radius: 15px;
+  }

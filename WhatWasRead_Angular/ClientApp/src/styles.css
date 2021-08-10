@@ -1,0 +1,13 @@
+body {
+  background-color: #d2d0d0;
+}
+
+div {
+  display: block;
+  margin: 0 auto;
+}
+
+a {
+  color: navy;
+  text-decoration: none;
+}

@@ -1,0 +1,51 @@
+.BookDetails {
+}
+
+.left-side-panel {
+  float: left;
+  min-width: 300px;
+}
+
+.right-side-panel {
+  display: inline-flex;
+  float: none;
+  width: 70%;
+  border-style: outset;
+}
+
+  .right-side-panel p {
+    margin-left: 0;
+  }
+
+  .right-side-panel dt {
+    text-align: left;
+    float: left;
+    margin-left: 7px;
+  }
+
+  .right-side-panel dd {
+    margin-bottom: 0.5rem;
+    margin-left: 175px;
+  }
+
+.container-panel {
+}
+
+.img-thumbnail {
+  padding: 4px;
+  height: 390px;
+  background-color: #aaa;
+  border: 1px solid #ddd;
+}
+
+.details-p {
+  margin-left: 32rem;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.tag-a {
+  text-decoration: underline;
+  font-weight: bold;
+  padding-right: 5px;
+}

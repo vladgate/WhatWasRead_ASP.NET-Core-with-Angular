@@ -1,0 +1,52 @@
+<div id="left-panel">
+  <h3>Категории книг</h3>
+  <ul id="list">
+    <li attr.data-target="all">
+      <a routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{exact:true}">Все</a>
+    </li>
+      <li *ngFor="let category of categories" attr.data-target={category.nameForLinks}>
+        <a [routerLink]="['/books/list', category.nameForLinks, 'page1']" routerLinkActive="selected">{{category.nameForLabels}}</a>
+      </li>
+  </ul>
+  <h3>Фильтр</h3>
+
+  <span class="filter-span">Язык:</span>
+  <ul class="filter-ul" attr.data-target="{{LANGUAGE_QUERY_WORD}}">
+    <li class="filter-li" *ngFor="let language of languages">
+      <input class="filter-checkbox" type="checkbox" id={{language.languageId}} [(ngModel)]="language.checked" />
+      <a class="filter-label" href={{language.link}} (click)="onLanguageAnchorClick($event, language)">{{language.nameForLabels}}</a>
+    </li>
+  </ul>
+
+  <span class="filter-span">Автор:</span>
+  <ul class="filter-ul" attr.data-target="{{AUTHOR_QUERY_WORD}}">
+      <li class="filter-li" *ngFor="let author of authors">
+        <input class="filter-checkbox" type="checkbox" id={{author.authorId}} [(ngModel)]="author.checked" />
+        <a class="filter-label" href={{author.link}} (click)="onAuthorAnchorClick($event, author)">{{author.displayText}}</a>
+      </li>
+  </ul>
+
+  <div id="filter-pages" attr.data-target="{{PAGES_QUERY_WORD}}">
+    <span class="filter-span">Количество страниц:</span>
+    <p>
+      <span> от: </span>
+      <input class="filter-page-count" id="min-pages" type="text" [(ngModel)]="repo.mainPageModel.leftPanelData.minPagesActual" />
+      <span> до: </span>
+      <input class="filter-page-count" id="max-pages" type="text" [(ngModel)]="repo.mainPageModel.leftPanelData.maxPagesActual" />
+    </p>
+  </div>
+
+  <div class="btn-placeholder">
+    <input class="filter-btn" type="button" value="Применить фильтр" (click)="onApplyFilterButtonClick()"/>
+  </div>
+  <div class="btn-placeholder">
+    <input class="filter-btn" type="button" value="Сбросить фильтр" (click)="onResetFilterButtonClick()" />
+  </div>
+
+  <div>
+    <p class="tag-header">Поиск по тегу:</p>
+      <span *ngFor="let tag of tags" class="tag-span" attr.data-target={{tag.nameForLinks}}>
+        <a routerLink="/books/list/all/page1" [queryParams]="{tag: tag.nameForLinks}">{{tag.nameForLabels}}</a>
+      </span>
+  </div>
+</div>

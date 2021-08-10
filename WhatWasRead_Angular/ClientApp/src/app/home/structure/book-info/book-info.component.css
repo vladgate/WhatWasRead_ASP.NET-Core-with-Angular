@@ -1,0 +1,54 @@
+.book-info {
+  display: block;
+  margin: 2px;
+  height: auto;
+  float: left;
+  width: 480px;
+  border-style: solid;
+  border-color: #2a6496;
+  border-width: 1px;
+}
+
+.book-img {
+  background-color: initial;
+  display: block;
+  width: 160px;
+  height: 220px;
+  margin-top: 5px;
+  margin-left: 160px;
+}
+
+  .book-img img {
+    width: 152px;
+    height: 215px;
+  }
+
+.book-name {
+  clear: both;
+  font-style: normal;
+  font-weight: bold;
+  font-family: initial;
+  font-size: large;
+  text-align: center;
+  min-height: 50px;
+}
+
+.book-authors {
+  clear: both;
+  font-style: italic;
+  font-weight: normal;
+  font-family: initial;
+  font-size: initial;
+  text-align: center;
+  min-height: 60px;
+}
+
+.book-details {
+  display: inline-block;
+  text-align: center;
+  height: 24px;
+  width: 120px;
+  background-color: gainsboro;
+  margin-bottom: 10px;
+  font-weight: 600;
+}

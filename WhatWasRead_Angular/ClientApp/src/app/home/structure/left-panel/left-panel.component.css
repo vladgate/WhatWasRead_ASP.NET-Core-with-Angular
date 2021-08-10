@@ -1,0 +1,76 @@
+#left-panel {
+  background-color: linen;
+  float: left;
+  width: 340px;
+  text-align: left;
+  border: 4px;
+  border-color: ghostwhite;
+  border-style: double;
+}
+
+  #left-panel #list {
+    list-style-type: none;
+    text-decoration: underline;
+    font-size: 12pt;
+  }
+
+  #left-panel li {
+    font-size: large;
+    text-align: left;
+    line-height: 25px;
+  }
+
+li a.selected {
+  font-weight: bold;
+}
+
+#filter-pages p {
+  margin-left: 2.5rem;
+}
+
+.filter-ul {
+  list-style-type: none;
+}
+
+.filter-span {
+  font-size: large;
+}
+
+.filter-label {
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.filter-checkbox {
+  margin: 0px 4px 0px 0px;
+}
+
+.filter-page-count {
+  width: 60px;
+  text-align: center;
+  font-size: large;
+}
+
+.btn-placeholder {
+  text-align: center;
+}
+
+.filter-btn {
+  background-color: aliceblue;
+  font-size: larger;
+}
+
+.tag-header {
+  margin-top: 100px;
+  font-weight: bold;
+}
+
+.tag-span {
+  font-weight: bolder;
+  text-decoration: underline;
+  text-align: center;
+  margin-left: 2px;
+  margin-right: 2px;
+  font-size: 12px;
+  display: inline-block;
+}

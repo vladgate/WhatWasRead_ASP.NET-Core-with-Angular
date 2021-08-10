@@ -1,0 +1,15 @@
+ <div id="books-list" *ngIf="bookRows.length > 0; else noData">
+  <book-row *ngFor="let bookRow of bookRows" [model]="bookRow"></book-row>
+</div>
+
+<ng-template #noData>
+  <div [ngStyle]='{
+         display: "flex",
+         minHeight: "350px",
+         width: "960px",
+         alignItems: "center",
+         justifyContent: "center"
+      }'>
+    <h2>По Вашему запросу ничего не найдено!</h2>
+  </div>
+</ng-template>

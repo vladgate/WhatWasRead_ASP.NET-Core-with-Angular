@@ -1,0 +1,7 @@
+<div id="main-page">
+  <ng-container *ngIf="init">
+    <left-panel></left-panel>
+    <right-panel></right-panel>
+  </ng-container>
+  <loader *ngIf="isLoading"></loader>
+</div>
