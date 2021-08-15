@@ -1,0 +1,56 @@
+<div class="TagList">
+  <h3>Добавить тег</h3>
+  <hr />
+  <div class="container-horizontal">
+    <p>
+      <label>Текст представления:</label>
+      <input type="text" [(ngModel)]="newNameForLabels" />
+    </p>
+    <p>
+      <label>Текст ссылки:</label>
+      <input type="text" [(ngModel)]="newNameForLinks" />
+    </p>
+    <div class="errors">{{repo.tagSaveErrors}}</div>
+  </div>
+  <button class="btn btn-primary" (click)="saveNewTag()">Сохранить</button>
+
+  <hr />
+  <h2>Теги</h2>
+  <div class="errors">{{repo.tagTableErrors}}</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Текст представления</th>
+        <th>Текст ссылки</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody >
+      <ng-template *ngFor="let tag of tags" [ngIf]="tag?.tagId !== editedTag?.tagId" [ngIfElse]="editing">
+        <tr>
+          <td>{{tag.nameForLabels}}</td>
+          <td>{{tag.nameForLinks}}</td>
+          <td>
+            <button class="btn-edit" (click)="editTag(tag.tagId)">Редактировать</button>
+            <span> | </span>
+            <button class="btn-delete" (click)="deleteTag(tag.tagId)">Удалить</button>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #editing>
+  <tr>
+    <td><input [(ngModel)]="editedTag.nameForLabels"/></td>
+    <td><input [(ngModel)]="editedTag.nameForLinks"/></td>
+    <td>
+      <button class="btn-edit" (click)="saveEditedTag(editedTag.tagId)">Сохранить</button>
+      <span> | </span>
+      <button class="btn-cancel" (click)="editedTag = null">Отмена</button>
+      <span> | </span>
+      <button class="btn-delete" (click)="deleteTag(editedTag.tagId)">Удалить</button>
+    </td>
+  </tr>
+</ng-template>

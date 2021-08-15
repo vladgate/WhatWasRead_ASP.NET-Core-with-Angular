@@ -9,11 +9,14 @@ using Microsoft.Data.SqlClient;
 using WhatWasRead_Angular.App_Data;
 using WhatWasRead_Angular.Models;
 using WhatWasRead_Angular.App_Data.DBModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WhatWasRead_Angular.Controllers
 {
    [Route("api/[controller]")]
    [ApiController]
+   [Authorize]
+
    public class AuthorsController : ControllerBase
    {
       private readonly IRepository _repository;
@@ -25,6 +28,7 @@ namespace WhatWasRead_Angular.Controllers
 
       // GET: api/Authors
       [HttpGet]
+      [AllowAnonymous]
       public IActionResult GetAuthors()
       {
          return new JsonResult(_repository.Authors.Select(a => new { AuthorId = a.AuthorId, FirstName = a.FirstName, LastName = a.LastName }).OrderBy(a=>a.LastName).ToList());
@@ -32,6 +36,7 @@ namespace WhatWasRead_Angular.Controllers
 
       // GET: api/Authors/5
       [HttpGet("{id}")]
+      [AllowAnonymous]
       public IActionResult GetAuthor(int id)
       {
          var author = _repository.Authors.Where(a => a.AuthorId == id).FirstOrDefault();
@@ -44,8 +49,29 @@ namespace WhatWasRead_Angular.Controllers
          return new JsonResult(new { AuthorId = author.AuthorId, FirstName = author.FirstName, LastName = author.LastName });
       }
 
-      [HttpPut]
-      public async Task<IActionResult> PutAuthor(CreateEditAuthorViewModel model)
+      [HttpPost]
+      public async Task<IActionResult> PostAuthor([FromBody] CreateEditAuthorViewModel model)
+      {
+         string errors = model.Validate(isCreate: true);
+         if (errors != "")
+         {
+            return new JsonResult(new { errors = errors });
+         }
+         Author newAuthor = new Author { FirstName = model.FirstName, LastName = model.LastName };
+         _repository.AddAuthor(newAuthor);
+         try
+         {
+            await _repository.SaveChangesAsync();
+         }
+         catch (Exception)
+         {
+            return new JsonResult(new { errors = "Возникла ошибка." });
+         }
+         return Ok(new { success = true, statuscode = "200", authodId = newAuthor.AuthorId });
+      }
+
+      [HttpPut("{id}")]
+      public async Task<IActionResult> PutAuthor([FromBody] CreateEditAuthorViewModel model)
       {
          string errors = model.Validate(isCreate: false);
          if (errors != "")
@@ -81,26 +107,6 @@ namespace WhatWasRead_Angular.Controllers
          return Ok(new { success = true, statuscode = "200" });
       }
 
-      [HttpPost]
-      public async Task<IActionResult> PostAuthor(CreateEditAuthorViewModel model)
-      {
-         string errors = model.Validate(isCreate: true);
-         if (errors != "")
-         {
-            return new JsonResult(new { errors = errors });
-         }
-         Author newAuthor = new Author { FirstName = model.FirstName, LastName = model.LastName };
-         _repository.AddAuthor(newAuthor);
-         try
-         {
-            await _repository.SaveChangesAsync();
-         }
-         catch (Exception)
-         {
-            return new JsonResult(new { errors = "Возникла ошибка." });
-         }
-         return Ok(new { success = true, statuscode = "200", authodId = newAuthor.AuthorId });
-      }
 
       // DELETE: api/Authors/5
       [HttpDelete("{id}")]

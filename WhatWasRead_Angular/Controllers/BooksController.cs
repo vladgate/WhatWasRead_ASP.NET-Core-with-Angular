@@ -9,6 +9,7 @@ using WhatWasRead_Angular.Models;
 using WhatWasRead_Angular.App_Data.DBModels;
 using WhatWasRead_Angular.App_Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WhatWasRead_Angular.Controllers
 {
@@ -282,6 +283,7 @@ namespace WhatWasRead_Angular.Controllers
       }
 
       [HttpGet("create")]
+      [Authorize]
       public IActionResult Create()
       {
          var model = new
@@ -295,6 +297,7 @@ namespace WhatWasRead_Angular.Controllers
       }
 
       [HttpPost]
+      [Authorize]
       public async Task<IActionResult> Create(CreateEditBookViewModel model)
       {
          string errors = model.Validate(isCreate: true);
@@ -354,6 +357,7 @@ namespace WhatWasRead_Angular.Controllers
       }
 
       [HttpGet("edit/{id}")]
+      [Authorize]
       public IActionResult Edit(int id)
       {
          Book book = _repository.FindBook(id);
@@ -383,6 +387,7 @@ namespace WhatWasRead_Angular.Controllers
       }
 
       [HttpPut]
+      [Authorize]
       public async Task<IActionResult> Edit(CreateEditBookViewModel model)
       {
          string errors = model.Validate(isCreate: false);
@@ -459,6 +464,7 @@ namespace WhatWasRead_Angular.Controllers
       }
 
       [HttpDelete("delete/{id}")]
+      [Authorize]
       public async Task<IActionResult> Delete(int id)
       {
          Book book = _repository.FindBook(id);

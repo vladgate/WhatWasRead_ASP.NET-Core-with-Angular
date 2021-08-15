@@ -7,8 +7,6 @@ export class AuthenticationGuard {
   constructor(private router: Router, private authService: AuthenticationService) { }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    debugger
-    return true;
     if (this.authService.authenticated) {
       return true;
     } else {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BookShortInfo } from './bookShortInfo.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Author } from './author.model';
 import { Category } from './category.model';
 import { Language } from './language.model';
@@ -34,6 +34,10 @@ export class Repository {
   activePages: number[] = [1];
   isLoading: boolean;
   currentBookDetails: BookDetailedInfo;
+  tags: Tag[];
+  tagSaveErrors: string;
+  tagTableErrors: string;
+
 
   constructor(private httpClient: HttpClient) {
   }
@@ -69,5 +73,46 @@ export class Repository {
       this.currentBookDetails = response;
       this.isLoading = false;
     });
+  }
+
+  getTags() {
+    this.httpClient.get<Tag[]>('api/tags').subscribe(result => {
+      this.tags = result;
+    });
+  }
+
+  saveNewTag(newTag: Tag) {
+    this.httpClient.post<any>('/api/tags', newTag).subscribe(
+      (res) => {
+        newTag.tagId = res.tagId;
+        this.tags.push(newTag);
+      },
+      (er: HttpErrorResponse) => {
+        this.tagSaveErrors = er.message;
+      }
+    );
+  }
+
+  updateTag(editedTag: Tag) {
+    this.tagTableErrors = "";
+    this.httpClient.put<any>(`/api/tags/${editedTag.tagId}`, editedTag).subscribe(
+      (res) => {
+        const index = this.tags.findIndex(t => t.tagId === editedTag.tagId);
+        if (index >= 0) {
+          this.tags[index] = editedTag;
+        }
+      },
+      (er: HttpErrorResponse) => {
+        this.tagTableErrors = er.message;
+      }
+    );
+  }
+
+  deleteTag(tagId: number) {
+    this.tagTableErrors = "";
+    this.httpClient.delete<any>(`/api/tags/${tagId}`).subscribe(() => {
+      this.tags = this.tags.filter(t => t.tagId !== tagId);
+    },
+      (er: HttpErrorResponse) => { this.tagTableErrors = er.message; });
   }
 }

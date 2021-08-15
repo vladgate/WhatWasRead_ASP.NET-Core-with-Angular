@@ -11,3 +11,21 @@ a {
   color: navy;
   text-decoration: none;
 }
+
+form {
+  margin-left: 10px
+}
+
+.form-control {
+  display: inline-block;
+  margin-bottom: .8rem;
+  background-color: inherit;
+}
+
+  .form-control label{
+     min-width:150px;
+  }
+
+.invalid {
+  color: red;
+}

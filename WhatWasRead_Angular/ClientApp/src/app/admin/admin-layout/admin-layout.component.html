@@ -1,15 +1,17 @@
 <div>
   <div id="header">
     <h1><a routerLink="/">Что было прочитано</a></h1>
+    <button (click)="authService.logout()">Выйти
+    </button>
   </div>
   <router-outlet></router-outlet>
   <hr />
   <div id="footer">
     <div id="footer-menu">
-      <a routerLink="/">На главную</a><span> | </span>
-      <a routerLink="/books/create">Добавить прочтенную книгу</a><span> | </span>
-      <a routerLink="/authors">Авторы</a><span> | </span>
-      <a routerLink="/tags">Теги</a>
+      <a routerLink="/admin/overview">Панель администрирования</a><span> | </span>
+      <a routerLink="/admin/books/create">Добавить прочтенную книгу</a><span> | </span>
+      <a routerLink="/admin/authors">Авторы</a><span> | </span>
+      <a routerLink="/admin/tags">Теги</a>
     </div>
   </div>
 </div>

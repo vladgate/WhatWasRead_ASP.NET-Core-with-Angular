@@ -1,1 +1,33 @@
-<p>login-page works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h2>Войти в панель администратора</h2>
+  <h4 *ngIf="showError" class="invalid">
+    Неправильное имя пользователя или пароль
+  </h4>
+
+  <div class="form-control">
+    <label for="username">Имя пользователя:</label>
+    <input id="username" type="text" formControlName="username" required />
+    <div *ngIf="form.get('username').touched && form.get('username').invalid" [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid}">
+      <small *ngIf="form.get('username').errors.required">Введите имя пользовтеля</small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="password">Пароль:</label>
+    <input id="password" type="password" formControlName="password" required />
+    <div *ngIf="form.get('password').touched && form.get('password').invalid" [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}">
+      <small *ngIf="form.get('password').errors.required">Введите пароль</small>
+      <small *ngIf="form.get('password').errors.minlength">Пароль должен быть не менее {{form.get('password').errors.minlength.requiredLength}} символов.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid || submitted">
+    Войти
+  </button>
+
+</form>
+
+<div style="margin:10px 10px">
+  <a routerLink="/">На главную</a>
+</div>
+

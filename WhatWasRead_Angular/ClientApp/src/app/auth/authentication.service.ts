@@ -10,17 +10,14 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) { }
 
   authenticated: boolean = false;
-  name: string;
-  password: string;
   callbackUrl: string;
 
-  login(): Observable<any> {
+  login(username: string, password: string): Observable<any> {
     this.authenticated = false;
-    return this.http.post<boolean>("/api/account/login", { name: this.name, password: this.password }).pipe(
+    return this.http.post<boolean>("/api/account/login", { name: username, password: password }).pipe(
       map(response => {
         if (response) {
           this.authenticated = true;
-          this.password = null;
           this.router.navigateByUrl(this.callbackUrl || "/admin/overview");
         }
         return this.authenticated;

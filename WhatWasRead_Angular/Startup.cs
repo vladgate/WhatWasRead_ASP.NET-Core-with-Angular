@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,12 @@ namespace WhatWasRead_Angular
          services.AddControllersWithViews();
          services.AddDbContext<WhatWasReadContext>();
          services.AddScoped<IRepository, EFRepository>();
+
+         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                   options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
 
          // In production, the Angular files will be served from this directory
          services.AddSpaStaticFiles(configuration =>
@@ -55,6 +62,9 @@ namespace WhatWasRead_Angular
          }
 
          app.UseRouting();
+
+         app.UseAuthentication();
+         app.UseAuthorization();
 
          app.UseEndpoints(endpoints =>
          {

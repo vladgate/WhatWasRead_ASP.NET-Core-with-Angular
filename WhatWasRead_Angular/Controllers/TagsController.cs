@@ -10,11 +10,13 @@ using WhatWasRead_Angular.App_Data.EF;
 using WhatWasRead_Angular.App_Data;
 using WhatWasRead_Angular.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WhatWasRead_Angular.Controllers
 {
    [Route("api/[controller]")]
    [ApiController]
+   [Authorize]
    public class TagsController : ControllerBase
    {
       private readonly IRepository _repository;
@@ -26,13 +28,15 @@ namespace WhatWasRead_Angular.Controllers
 
       // GET: api/Authors
       [HttpGet]
+      [AllowAnonymous]
       public IActionResult GetTags()
       {
-         return new JsonResult(_repository.Tags.Select(t => new { TagId = t.TagId, NameForLabels = t.NameForLabels, NameForLinks = t.NameForLinks }).OrderBy(t=>t.NameForLabels).ToList());
+         return new JsonResult(_repository.Tags.Select(t => new { TagId = t.TagId, NameForLabels = t.NameForLabels, NameForLinks = t.NameForLinks }).OrderBy(t => t.NameForLabels).ToList());
       }
 
       // GET: api/Tags/5
       [HttpGet("{id}")]
+      [AllowAnonymous]
       public IActionResult GetTag(int id)
       {
          Tag t = _repository.Tags.Where(t => t.TagId == id).FirstOrDefault();
@@ -45,8 +49,8 @@ namespace WhatWasRead_Angular.Controllers
          return new JsonResult(new { TagId = t.TagId, NameForLabels = t.NameForLabels, NameForLinks = t.NameForLinks });
       }
 
-      [HttpPut]
-      public async Task<IActionResult> PutTag(CreateEditTagViewModel model)
+      [HttpPut("{id}")]
+      public async Task<IActionResult> PutTag([FromBody] CreateEditTagViewModel model)
       {
          string errors = model.Validate(isCreate: false);
          if (errors != "")
@@ -83,7 +87,7 @@ namespace WhatWasRead_Angular.Controllers
       }
 
       [HttpPost]
-      public async Task<IActionResult> PostTag(CreateEditTagViewModel model)
+      public async Task<IActionResult> PostTag([FromBody] CreateEditTagViewModel model)
       {
          string errors = model.Validate(isCreate: true);
          if (errors != "")
