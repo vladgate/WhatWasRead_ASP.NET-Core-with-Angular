@@ -5,14 +5,14 @@ import { Tag } from '../../models/tag.model';
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
-  styleUrls: ['./tag-list.component.css']
+  styleUrls: ['./tag-list.component.css', '../admin.css']
 })
 export class TagListComponent implements OnInit {
   editedTag: Tag;
-  newNameForLabels: string;
-  newNameForLinks: string;
+  newNameForLabels: string = "";
+  newNameForLinks: string = "";
 
-  constructor(private repo: Repository) { }
+  constructor(private repo: Repository) {}
 
   ngOnInit() {
     this.repo.getTags();
@@ -37,7 +37,7 @@ export class TagListComponent implements OnInit {
       this.repo.tagSaveErrors += "Текст представления тега должно состоять от 1 до 50 символов. "
     }
     if (nameForLinks.trim().length < 1 || nameForLinks.trim().length > 50) {
-      this.repo.tagSaveErrors += "Текст ссылки тега должен состоять от 1 до 50 символов. "
+      this.repo.tagSaveErrors += "Текст ссылки тега должен состоять от 1 до 50 символов."
     }
   }
 
@@ -45,7 +45,7 @@ export class TagListComponent implements OnInit {
     this.editedTag = this.repo.tags.find(t => t.tagId === tagId);
   }
 
-  saveEditedTag(tagId: number) {
+  saveEditedTag() {
     this.validateTag(this.editedTag.nameForLabels, this.editedTag.nameForLinks);
     if (this.repo.tagSaveErrors) {
       return;

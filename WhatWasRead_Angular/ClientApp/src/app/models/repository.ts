@@ -37,6 +37,9 @@ export class Repository {
   tags: Tag[];
   tagSaveErrors: string;
   tagTableErrors: string;
+  authors: Author[];
+  authorSaveErrors: string;
+  authorTableErrors: string;
 
 
   constructor(private httpClient: HttpClient) {
@@ -84,8 +87,13 @@ export class Repository {
   saveNewTag(newTag: Tag) {
     this.httpClient.post<any>('/api/tags', newTag).subscribe(
       (res) => {
-        newTag.tagId = res.tagId;
-        this.tags.push(newTag);
+        if (res.errors) {
+          this.tagSaveErrors = res.errors;
+        }
+        else {
+          newTag.tagId = res.tagId;
+          this.tags.push(newTag);
+        }
       },
       (er: HttpErrorResponse) => {
         this.tagSaveErrors = er.message;
@@ -97,9 +105,14 @@ export class Repository {
     this.tagTableErrors = "";
     this.httpClient.put<any>(`/api/tags/${editedTag.tagId}`, editedTag).subscribe(
       (res) => {
-        const index = this.tags.findIndex(t => t.tagId === editedTag.tagId);
-        if (index >= 0) {
-          this.tags[index] = editedTag;
+        if (res.errors) {
+          this.tagTableErrors = res.errors;
+        }
+        else {
+          const index = this.tags.findIndex(t => t.tagId === editedTag.tagId);
+          if (index >= 0) {
+            this.tags[index] = editedTag;
+          }
         }
       },
       (er: HttpErrorResponse) => {
@@ -115,4 +128,57 @@ export class Repository {
     },
       (er: HttpErrorResponse) => { this.tagTableErrors = er.message; });
   }
+
+  getAuthors() {
+    this.httpClient.get<Author[]>('api/authors').subscribe(result => {
+      this.authors = result;
+    });
+  }
+
+  saveNewAuthor(newAuthor: Author) {
+    this.httpClient.post<any>('/api/authors', newAuthor).subscribe(
+      (res) => {
+        if (res.errors) {
+          this.authorSaveErrors = res.errors;
+        }
+        else {
+          newAuthor.authorId = res.authorId;
+          this.authors.push(newAuthor);
+        }
+      },
+      (er: HttpErrorResponse) => {
+        this.authorSaveErrors = er.message;
+      }
+    );
+  }
+
+  updateAuthor(editedAuthor: Author) {
+    this.authorTableErrors = "";
+    this.httpClient.put<any>(`/api/authors/${editedAuthor.authorId}`, editedAuthor).subscribe(
+      (res) => {
+        if (res.errors) {
+          this.authorTableErrors = res.errors;
+        }
+        else {
+          const index = this.authors.findIndex(a => a.authorId === editedAuthor.authorId);
+          if (index >= 0) {
+            this.authors[index] = editedAuthor;
+          }
+        }
+      },
+      (er: HttpErrorResponse) => {
+        this.authorTableErrors = er.message;
+      }
+    );
+  }
+
+  deleteAuthor(authorId: number) {
+    this.authorTableErrors = "";
+    this.httpClient.delete<any>(`/api/authors/${authorId}`).subscribe(() => {
+      this.authors = this.authors.filter(a => a.authorId !== authorId);
+    },
+      (er: HttpErrorResponse) => { this.authorTableErrors = er.message; });
+  }
+
+
 }

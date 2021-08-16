@@ -1,0 +1,11 @@
+.AuthorList > * {
+  margin-left: 100px;
+}
+
+.AuthorList .container-horizontal {
+}
+
+  .AuthorList .container-horizontal label {
+    width: 180px;
+    font-weight: bold;
+  }

@@ -67,7 +67,7 @@ namespace WhatWasRead_Angular.Controllers
          {
             return new JsonResult(new { errors = "Возникла ошибка." });
          }
-         return Ok(new { success = true, statuscode = "200", authodId = newAuthor.AuthorId });
+         return Ok(new { success = true, statuscode = "200", authorId = newAuthor.AuthorId });
       }
 
       [HttpPut("{id}")]

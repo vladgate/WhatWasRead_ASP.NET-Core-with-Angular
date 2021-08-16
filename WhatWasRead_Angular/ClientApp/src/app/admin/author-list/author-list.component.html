@@ -1,0 +1,56 @@
+<div class="AuthorList">
+  <h3>Добавить тег</h3>
+  <hr />
+  <div class="container-horizontal">
+    <p>
+      <label>Фамилия:</label>
+      <input type="text" [(ngModel)]="newLastName" />
+    </p>
+    <p>
+      <label>Имя:</label>
+      <input type="text" [(ngModel)]="newFirstName" />
+    </p>
+    <div class="errors">{{repo.authorSaveErrors}}</div>
+  </div>
+  <button class="btn btn-primary" (click)="saveNewAuthor()">Сохранить</button>
+
+  <hr />
+  <h2>Теги</h2>
+  <div class="errors">{{repo.authorTableErrors}}</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template *ngFor="let author of authors" [ngIf]="author?.authorId !== editedAuthor?.authorId" [ngIfElse]="editing">
+        <tr>
+          <td>{{author.lastName}}</td>
+          <td>{{author.firstName}}</td>
+          <td>
+            <button class="btn-edit" (click)="editAuthor(author.authorId)">Редактировать</button>
+            <span> | </span>
+            <button class="btn-delete" (click)="deleteAuthor(author.authorId)">Удалить</button>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #editing>
+  <tr>
+    <td><input [(ngModel)]="editedAuthor.lastName" /></td>
+    <td><input [(ngModel)]="editedAuthor.firstName" /></td>
+    <td>
+      <button class="btn-edit" (click)="saveEditedAuthor()">Сохранить</button>
+      <span> | </span>
+      <button class="btn-cancel" (click)="editedAuthor = null">Отмена</button>
+      <span> | </span>
+      <button class="btn-delete" (click)="deleteAuthor(editedAuthor.authorId)">Удалить</button>
+    </td>
+  </tr>
+</ng-template>

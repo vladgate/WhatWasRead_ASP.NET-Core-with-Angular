@@ -1,0 +1,37 @@
+.btn-edit, .btn-cancel {
+  background-color: darkgrey;
+  font-weight: bolder;
+  color: darkblue;
+}
+
+.btn-delete {
+  background-color: darkgrey;
+  font-weight: bolder;
+  color: red;
+}
+
+table {
+  font-size: large;
+}
+
+  table tr {
+    border-bottom-style: double;
+  }
+
+
+  table td {
+    border-style: groove;
+    border-width: thin;
+    font-size: larger;
+    padding-right: 20px;
+  }
+
+  table th {
+    text-align: center;
+    min-width: 200px;
+  }
+
+.errors {
+  color: red;
+  font-weight: bolder;
+}
