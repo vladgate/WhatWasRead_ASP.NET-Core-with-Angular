@@ -8,24 +8,26 @@ import { LoginPageComponent } from "../auth/login-page/login-page.component";
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { TagListComponent } from './tag-list/tag-list.component';
 import { AuthorListComponent } from './author-list/author-list.component';
+import { BookCreateOrEditComponent } from './book-createOrEdit/book-createOrEdit.component';
 
 const routes: Routes = [
   { path: "login", component: LoginPageComponent },
   {
     path: "", component: AdminLayoutComponent, canActivateChild: [AuthenticationGuard],
-      children: [
-        { path: "tags", component: TagListComponent },
-        { path: "authors", component: AuthorListComponent },
-        { path: "overview", component: AdminOverviewComponent },
-        //{ path: "", redirectTo: '/admin/login', pathMatch: 'full' },
-        { path: "", component: AdminOverviewComponent }
-      ]
+    children: [
+      { path: "books/edit/:id", component: BookCreateOrEditComponent, pathMatch: "full" },
+      { path: "books/create", component: BookCreateOrEditComponent, pathMatch: "full" },
+      { path: "tags", component: TagListComponent },
+      { path: "authors", component: AuthorListComponent },
+      { path: "overview", component: AdminOverviewComponent },
+      { path: "", component: AdminOverviewComponent }
+    ]
   }
 ];
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(routes), AuthModule],
-  declarations: [AdminOverviewComponent, AdminLayoutComponent, TagListComponent, AuthorListComponent]
+  declarations: [AdminOverviewComponent, AdminLayoutComponent, TagListComponent, AuthorListComponent, BookCreateOrEditComponent]
 })
 export class AdminModule {
 

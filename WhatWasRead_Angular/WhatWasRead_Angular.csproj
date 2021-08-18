@@ -38,6 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\models\bookCreateOrEdit.model.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\models\bookRow.model.ts" />
   </ItemGroup>
 

@@ -60,21 +60,17 @@
         </dl>
       </div>
     </div>
-    <!--<div class="details-p">-->
-      <!--<a routerLink="/books/edit" queryParams="{bookId:repo.currentBookDetails.bookId}">Редактировать</a> |-->
-      <!--<a href={'void(0)'}
-           click="{($event) =>
-          {
-            $event.preventDefault();
-            isWantDelete = true;
-              }}">Удалить
-          </a>
-          <div *ngif="isWantDelete">
-            <span>Вы действительно хотите удалить насовсем эту книгу?</span>
-            <button (сlick)="onDeleteConfirmed($event)">Да</button>
-            <button (click)="() => isWantDelete = false">Нет</button>
-          </div>-->
-    <!--</div>-->
+
+    <div className="details-p" *ngIf="isAuth">
+      <a [routerLink]="['/admin/books/edit', activeRoute.snapshot.params['id']]">Редактировать</a> |
+      <a href="javascript:void(0)" (click)="editClick($event)">Удалить</a>
+      <div *ngIf="isWantDelete">
+        <span>Вы действительно хотите удалить насовсем эту книгу?</span>
+        <button (click)="onDeleteConfirmed()">Да</button>
+        <button (click)="isWantDelete = false">Нет</button>
+      </div>
+    </div>
+
   </ng-container>
 </div>
 

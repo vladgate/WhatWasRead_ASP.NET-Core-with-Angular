@@ -24,23 +24,15 @@ export class AuthorListComponent implements OnInit {
   }
 
   saveNewAuthor() {
-    this.validateAuthor(this.newLastName, this.newFirstName);
-    if (this.repo.authorSaveErrors) {
+    const newAuthor = new Author(this.newFirstName, this.newLastName);
+    const errors = newAuthor.validate();
+    if (errors) {
+      this.repo.authorSaveErrors = errors;
       return;
     }
-    this.repo.saveNewAuthor(new Author(this.newFirstName, this.newLastName));
+    this.repo.saveNewAuthor(newAuthor);
     this.newFirstName = "";
     this.newLastName = "";
-  }
-
-  validateAuthor(lastName, firstName): void {
-    this.repo.authorSaveErrors = "";
-    if (lastName.trim().length < 2 || lastName.trim().length > 30) {
-      this.repo.authorSaveErrors += "Фамилия автора должна состоять от 2 до 30 символов. "
-    }
-    if (firstName.trim().length < 2 || firstName.trim().length > 30) {
-      this.repo.authorSaveErrors += "Имя автора должно состоять от 2 до 30 символов."
-    }
   }
 
   editAuthor(authorId: number) {
@@ -48,8 +40,9 @@ export class AuthorListComponent implements OnInit {
   }
 
   saveEditedAuthor() {
-    this.validateAuthor(this.editedAuthor.lastName, this.editedAuthor.firstName);
-    if (this.repo.authorSaveErrors) {
+    const errors = this.editedAuthor.validate();
+    if (errors) {
+      this.repo.authorSaveErrors = errors;
       return;
     }
     this.repo.updateAuthor(this.editedAuthor);

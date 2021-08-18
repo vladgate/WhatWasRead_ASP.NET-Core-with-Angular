@@ -386,7 +386,7 @@ namespace WhatWasRead_Angular.Controllers
          return new JsonResult(model);
       }
 
-      [HttpPut]
+      [HttpPut("{id}")]
       [Authorize]
       public async Task<IActionResult> Edit(CreateEditBookViewModel model)
       {
@@ -463,7 +463,7 @@ namespace WhatWasRead_Angular.Controllers
          return Ok(new { success = true, statuscode = "200" });
       }
 
-      [HttpDelete("delete/{id}")]
+      [HttpDelete("{id}")]
       [Authorize]
       public async Task<IActionResult> Delete(int id)
       {

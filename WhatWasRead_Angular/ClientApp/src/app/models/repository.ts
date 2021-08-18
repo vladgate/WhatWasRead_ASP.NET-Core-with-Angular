@@ -6,6 +6,8 @@ import { Category } from './category.model';
 import { Language } from './language.model';
 import { Tag } from './tag.model';
 import { BookDetailedInfo } from './bookDetailedInfo';
+import { BookCreateOrEdit } from './bookCreateOrEdit.model';
+import { Router } from '@angular/router';
 
 export interface LeftPanelData {
   authors: Author[],
@@ -18,10 +20,23 @@ export interface LeftPanelData {
   minPagesExpected: number
 }
 
+export interface BookMetadata {
+  authors: AuthorShortInfo[],
+  categories: Category[],
+  languages: Language[],
+  tags: Tag[]
+}
+
+export type AuthorShortInfo = {
+  authorId: number,
+  displayText: string
+}
+
 export interface RightPanelData {
   bookInfo: BookShortInfo[],
   totalPages: number
 }
+
 export interface MainPageModel {
   leftPanelData: LeftPanelData,
   rightPanelData: RightPanelData
@@ -29,7 +44,6 @@ export interface MainPageModel {
 
 @Injectable()
 export class Repository {
-
   mainPageModel: MainPageModel;
   activePages: number[] = [1];
   isLoading: boolean;
@@ -40,9 +54,10 @@ export class Repository {
   authors: Author[];
   authorSaveErrors: string;
   authorTableErrors: string;
+  bookMetadata: BookMetadata = { authors: [], categories: [], languages: [], tags: [] };
+  editedBook: BookCreateOrEdit = new BookCreateOrEdit();
 
-
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
   }
 
   getBookListWithMetadata(category: string = "all", page: number = 1, search: string = "") {
@@ -180,5 +195,54 @@ export class Repository {
       (er: HttpErrorResponse) => { this.authorTableErrors = er.message; });
   }
 
+  getMetadataForBook() {
+    this.httpClient.get<BookMetadata>('/api/books/create').subscribe((result) => {
+      this.bookMetadata = result;
+    });
+  }
 
+  getBookForEditing(bookId: number) {
+    this.httpClient.get<any>(`/api/books/edit/${bookId}`).subscribe((result) => {
+      this.bookMetadata = { authors: result.authors, categories: result.categories, languages: result.languages, tags: result.tags };
+      this.editedBook = new BookCreateOrEdit(result.bookId, result.name, result.description, result.pages, result.year, result.base64ImageSrc, result.selectedCategoryId,
+        result.selectedLanguageId, result.selectedAuthorsId, result.selectedTagsId);
+    });
+  }
+
+  saveBook(book: BookCreateOrEdit) {
+    if (book.bookId) {//put
+      this.httpClient.put<any>(`/api/books/${book.bookId}`, book).subscribe(
+        (res) => {
+          if (res.errors) {
+            throw new Error(res.errors);
+          }
+          else {
+            this.router.navigateByUrl('/');
+          }
+        }),
+        (er: HttpErrorResponse) => {
+          throw er;
+        }
+    }
+    else {//post
+      this.httpClient.post<any>('/api/books/', book).subscribe(
+        (res) => {
+          if (res.errors) {
+            throw new Error(res.errors);
+          }
+          else {
+            this.router.navigateByUrl('/');
+          }
+        }),
+        (er: HttpErrorResponse) => {
+          throw er;
+        }
+    }
+  }
+
+  deleteBook(bookId: number) {
+    this.httpClient.delete<any>(`api/books/${bookId}`).subscribe((res) => {
+      this.getBookListWithMetadata();
+    });
+  }
 }

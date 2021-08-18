@@ -1,0 +1,71 @@
+<div class="BookEditOrCreate">
+  <h2 style="margin-left: 10px">{{isCreate ? "Добавление новой книги" : "Редактирование информации о книге"}}</h2>
+  <hr />
+  <div class="container-panel">
+    <div class="left-side-panel">
+      <div style="position: relative">
+        <label>
+          <input type="file" accept=".jpg, .jpeg, .png" (change)="fileChanged($event)" />
+          <a>{{book?.base64ImageSrc ? "Изменить изображение" : "Выбрать изображение"}}</a>
+        </label>
+      </div>
+      <img class="img-thumbnail" src={{book?.base64ImageSrc}} alt="Нет изображения" />
+    </div>
+    <div class="right-side-panel">
+      <div class="container-horizontal">
+        <p>
+          <label>Название:</label>
+          <input type="text" value={{book.name}} #nameInput />
+        </p>
+
+        <p>
+          <label class="book-edit-label">Авторы:</label>
+          <select multiple="multiple" size="10" #authorsInput>
+            <option *ngFor="let author of authors" value={{author.authorId}} [selected]="isSelectedbook(author.authorId)">{{author.displayText}}</option>
+          </select>
+        </p>
+        <p>
+          <label class="book-edit-label">Количество страниц:</label>
+          <input type="number" value={{book.pages}} #pagesInput />
+        </p>
+
+        <p>
+          <label class="book-edit-label">Год издания:</label>
+          <input type="number" value={{book.year}} #yearInput />
+        </p>
+
+        <p>
+          <label class="book-edit-label">Описание:</label>
+          <textarea value={{book.description}} #descriptionInput></textarea>
+        </p>
+
+        <p>
+          <label class="book-edit-label">Язык:</label>
+          <select #langInput>
+            <option *ngFor="let lang of languages" value={{lang.languageId}} [selected]="book.selectedLanguageId === lang.languageId">
+              {{lang.nameForLabels}}
+            </option>
+          </select>
+        </p>
+
+        <p>
+          <label class="book-edit-label">Категория:</label>
+          <select #categoryInput>
+            <option *ngFor="let category of categories" value={{category.categoryId}} [selected]="book.selectedCategoryId === category.categoryId">{{category.nameForLabels}}</option>
+          </select>
+        </p>
+
+        <p>
+          <label class="book-edit-label">Теги:</label>
+          <select multiple="multiple" size="10" #tagsInput>
+            <option *ngFor="let tag of tags" [selected]="book.selectedTagsId?.includes(tag.tagId)" value={{tag.tagId}}>{{tag.nameForLabels}}</option>
+          </select>
+        </p>
+        <div class="errors">{{errors}}</div>
+      </div>
+    </div>
+    <div class="details-p">
+      <button class="btn btn-primary" (click)="saveBook()">Сохранить</button>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,7 @@
 <div>
   <div id="header">
     <h1><a routerLink="/">Что было прочитано</a></h1>
-    <button (click)="authService.logout()">Выйти
-    </button>
   </div>
-  <router-outlet></router-outlet>
   <hr />
   <div id="footer">
     <div id="footer-menu">
@@ -12,6 +9,10 @@
       <a routerLink="/admin/books/create">Добавить прочтенную книгу</a><span> | </span>
       <a routerLink="/admin/authors">Авторы</a><span> | </span>
       <a routerLink="/admin/tags">Теги</a>
+      <button (click)="authService.logout()" style="margin-left:10px; background-color: black; color:white;">
+        Выйти
+      </button>
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

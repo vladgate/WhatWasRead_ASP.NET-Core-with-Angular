@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Router, ActivatedRouteSnapshot, } from "@angular/router";
 import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
 export class AuthenticationGuard {
   constructor(private router: Router, private authService: AuthenticationService) { }
 
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivateChild(route: ActivatedRouteSnapshot): boolean {
     if (this.authService.authenticated) {
       return true;
     } else {

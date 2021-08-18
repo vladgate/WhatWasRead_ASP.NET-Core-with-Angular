@@ -22,23 +22,15 @@ export class TagListComponent implements OnInit {
   }
 
   saveNewTag() {
-    this.validateTag(this.newNameForLabels, this.newNameForLinks);
-    if (this.repo.tagSaveErrors) {
+    const newTag = new Tag(this.newNameForLabels, this.newNameForLinks);
+    const errors = newTag.validate();
+    if (errors) {
+      this.repo.tagSaveErrors = errors;
       return;
     }
-    this.repo.saveNewTag(new Tag(this.newNameForLabels, this.newNameForLinks));
+    this.repo.saveNewTag(newTag);
     this.newNameForLabels = "";
     this.newNameForLinks = "";
-  }
-
-  validateTag(nameForLabels, nameForLinks): void {
-    this.repo.tagSaveErrors = "";
-    if (nameForLabels.trim().length < 1 || nameForLabels.trim().length > 50) {
-      this.repo.tagSaveErrors += "Текст представления тега должно состоять от 1 до 50 символов. "
-    }
-    if (nameForLinks.trim().length < 1 || nameForLinks.trim().length > 50) {
-      this.repo.tagSaveErrors += "Текст ссылки тега должен состоять от 1 до 50 символов."
-    }
   }
 
   editTag(tagId: number) {
@@ -46,8 +38,9 @@ export class TagListComponent implements OnInit {
   }
 
   saveEditedTag() {
-    this.validateTag(this.editedTag.nameForLabels, this.editedTag.nameForLinks);
-    if (this.repo.tagSaveErrors) {
+    const errors = this.editedTag.validate();
+    if (errors) {
+      this.repo.tagSaveErrors = errors;
       return;
     }
     this.repo.updateTag(this.editedTag);

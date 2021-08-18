@@ -3,7 +3,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NavigationService } from "../models/navigation.service";
 import { Repository } from "../models/repository";
 import { SharedModule } from "../shared/shared.module";
-import { BookDetailsComponent } from "./book-details/book-details.component";
 import { HomeComponent } from "./home.component";
 import { BookInfoComponent } from "./structure/book-info/book-info.component";
 import { BookListComponent } from "./structure/book-list/book-list.component";
@@ -22,7 +21,6 @@ import { MainLayoutComponent } from "./main-layout/main-layout.component";
     BookInfoComponent,
     BookListComponent,
     BookRowComponent,
-    BookDetailsComponent,
     PaginationComponent
   ],
   imports: [BrowserModule, SharedModule],

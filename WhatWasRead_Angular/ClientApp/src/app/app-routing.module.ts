@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookDetailsComponent } from './home/book-details/book-details.component';
 import { HomeComponent } from './home/home.component';
 import { MainLayoutComponent } from './home/main-layout/main-layout.component';
+import { BookDetailsComponent } from './shared/components/book-details/book-details.component';
 
 const routes: Routes = [
   { path: "admin", loadChildren: './admin/admin.module#AdminModule' },

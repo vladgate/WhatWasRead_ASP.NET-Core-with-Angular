@@ -45,7 +45,7 @@
 
   <div>
     <p class="tag-header">Поиск по тегу:</p>
-      <span *ngFor="let tag of tags" class="tag-span" attr.data-target={{tag.nameForLinks}}>
+      <span *ngFor="let tag of tags" class="tag-span">
         <a routerLink="/books/list/all/page1" [queryParams]="{tag: tag.nameForLinks}">{{tag.nameForLabels}}</a>
       </span>
   </div>
