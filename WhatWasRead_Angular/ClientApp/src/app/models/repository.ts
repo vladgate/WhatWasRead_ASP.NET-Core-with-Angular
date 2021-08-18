@@ -86,10 +86,8 @@ export class Repository {
     if (!bookId) {
       throw new Error("invalid bookId");
     }
-    this.isLoading = true;
     this.httpClient.get<BookDetailedInfo>(`api/books/details/${bookId}`).subscribe(response => {
       this.currentBookDetails = response;
-      this.isLoading = false;
     });
   }
 

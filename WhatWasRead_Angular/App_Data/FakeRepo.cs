@@ -211,7 +211,7 @@ namespace WhatWasRead_Angular.App_Data
 
       async public Task<IEnumerable<Book>> UpdateBooksFromFilterUsingRawSql(NameValueCollection queryString, string controller, string action)
       {
-         return _books;
+         return await Task.FromResult<IEnumerable<Book>>(_books);
       }
    }
 }

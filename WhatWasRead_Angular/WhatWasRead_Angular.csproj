@@ -35,10 +35,12 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\models\bookRow.model.ts" />
+    <None Remove="ClientApp\src\app\models\repository — копия.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\models\bookCreateOrEdit.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\repository — копия.ts" />
   </ItemGroup>
 
   <ItemGroup>
