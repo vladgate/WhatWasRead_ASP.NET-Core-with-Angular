@@ -15,10 +15,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get isLoading(): boolean {
-    return this.repo.isLoading;
-  }
-
   get init(): boolean {
     return <boolean><any>this.repo.mainPageModel;
   }

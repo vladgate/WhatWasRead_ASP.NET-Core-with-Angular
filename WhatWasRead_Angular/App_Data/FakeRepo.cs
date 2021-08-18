@@ -169,7 +169,6 @@ namespace WhatWasRead_Angular.App_Data
 
       public void Dispose()
       {
-         throw new NotImplementedException();
       }
 
       public Book FindBook(int id)
@@ -206,12 +205,12 @@ namespace WhatWasRead_Angular.App_Data
 
       async public Task SaveChangesAsync()
       {
-         throw new NotImplementedException();
+         await Task.CompletedTask;
       }
 
       async public Task<IEnumerable<Book>> UpdateBooksFromFilterUsingRawSql(NameValueCollection queryString, string controller, string action)
       {
-         return _books;
+         return await Task.FromResult(_books);
       }
    }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthenticationService } from "../../../auth/authentication.service";
 import { Repository } from "../../../models/repository";
@@ -14,16 +14,12 @@ export class BookDetailsComponent implements OnInit {
   constructor(private repo: Repository, private router: Router, private activeRoute: ActivatedRoute, public authService: AuthenticationService) {
   }
 
-  get isAuth() {
-    return this.authService.authenticated;
-  }
-
   ngOnInit(): void {
     this.repo.getBookDetails(this.activeRoute.snapshot.params['id']);
   }
 
-  get authors() {
-    return this.repo.currentBookDetails.authorsOfBooks.indexOf(',') >= 0 ? "Авторы:" : "Автор:";
+  get isAuth() {
+    return this.authService.authenticated;
   }
 
   editClick($event) {
@@ -34,5 +30,6 @@ export class BookDetailsComponent implements OnInit {
   onDeleteConfirmed() {
     this.repo.deleteBook(this.activeRoute.snapshot.params['id']);
     this.router.navigateByUrl('/');
+    this.isWantDelete = false;
   }
 }

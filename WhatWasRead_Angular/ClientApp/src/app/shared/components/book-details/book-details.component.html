@@ -4,7 +4,7 @@
     <hr />
     <div class="container-panel">
       <div class="left-side-panel">
-        <img class="img-thumbnail" src={{repo.currentBookDetails.base64ImageSrc}} alt={{repo.currentBookDetails.name}} />
+        <img class="img-thumbnail" src={{repo.currentBookDetails?.base64ImageSrc}} alt={{repo.currentBookDetails?.name}} />
       </div>
       <div class="right-side-panel">
         <dl class="dl-horizontal">
@@ -13,48 +13,48 @@
             <label>Название:</label>
           </dt>
           <dd>
-            {{repo.currentBookDetails.name}}
+            {{repo.currentBookDetails?.name}}
           </dd></p>
           <p>
           <dt class="dt-label">
-            <label>{{authors}}</label>
+            <label>{{repo.currentBookDetails?.authorsOfBooks.indexOf(',') >= 0 ? "Авторы:" : "Автор:"}}</label>
           </dt>
           <dd>
-            {{ repo.currentBookDetails.authorsOfBooks}}
+            {{ repo.currentBookDetails?.authorsOfBooks}}
           </dd></p>
           <p>
           <dt class="dt-label">
             <label>Количество страниц:</label>
           </dt>
-          <dd>{{repo.currentBookDetails.pages}}</dd></p>
+          <dd>{{repo.currentBookDetails?.pages}}</dd></p>
           <p>
           <dt class="dt-label">
             <label>Описание:</label>
           </dt>
-          <dd>{{repo.currentBookDetails.description}}</dd></p>
+          <dd>{{repo.currentBookDetails?.description}}</dd></p>
           <p>
           <dt class="dt-label">
             <label>Год издания:</label>
           </dt>
-          <dd>{{repo.currentBookDetails.year}}</dd></p>
+          <dd>{{repo.currentBookDetails?.year}}</dd></p>
           <p>
           <dt class="dt-label">
             <label>Категория:</label>
           </dt>
-          <dd>{{repo.currentBookDetails.category}}</dd></p>
+          <dd>{{repo.currentBookDetails?.category}}</dd></p>
           <p>
           <dt class="dt-label">
             <label>Язык:</label>
           </dt>
           <dd>
-            {{ repo.currentBookDetails.language}}
+            {{ repo.currentBookDetails?.language}}
           </dd></p>
           <p>
           <dt class="dt-label">
             <label>Теги:</label>
           </dt>
           <dd>
-            <a *ngFor="let tag of repo.currentBookDetails.bookTags" routerLink='/books/list/all/page1' [queryParams]="{tag:tag.nameForLinks}" class="tag-a">{{tag.nameForLabels}}</a>
+            <a *ngFor="let tag of repo.currentBookDetails?.bookTags" routerLink='/books/list/all/page1' [queryParams]="{tag:tag.nameForLinks}" class="tag-a">{{tag.nameForLabels}}</a>
           </dd>
           </p>
         </dl>
