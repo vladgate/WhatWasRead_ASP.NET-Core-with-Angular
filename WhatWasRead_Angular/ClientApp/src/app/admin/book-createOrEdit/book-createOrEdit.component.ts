@@ -9,7 +9,6 @@ import { Tag } from '../../models/tag.model';
 @Component({
   selector: 'app-book-createOrEdit',
   templateUrl: './book-createOrEdit.component.html',
-  //template:'<div>Works</div>',
   styleUrls: ['./book-createOrEdit.component.css']
 })
 export class BookCreateOrEditComponent implements OnInit {

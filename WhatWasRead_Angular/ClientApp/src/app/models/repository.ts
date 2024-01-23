@@ -93,7 +93,7 @@ export class Repository {
 
   getTags() {
     this.httpClient.get<Tag[]>('api/tags').subscribe(result => {
-      this.tags = result;
+      this.tags = result.map(i => new Tag(i.nameForLabels, i.nameForLinks, i.tagId));
     });
   }
 
@@ -144,7 +144,7 @@ export class Repository {
 
   getAuthors() {
     this.httpClient.get<Author[]>('api/authors').subscribe(result => {
-      this.authors = result;
+      this.authors = result.map(i => new Author(i.firstName, i.lastName, i.link, i.checked, i.authorId));
     });
   }
 
